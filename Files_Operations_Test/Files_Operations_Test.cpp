@@ -1,6 +1,11 @@
 ﻿#include <iostream>
 
-int main()
+void pudge()
 {
     std::cout << "pudge\n";
+}
+
+int main()
+{
+    pudge();
 }
