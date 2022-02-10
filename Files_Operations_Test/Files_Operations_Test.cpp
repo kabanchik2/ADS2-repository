@@ -45,7 +45,7 @@ bool isFileContainsSortedArray(std::string fileName)
     for (int i = 0; i < numbersCount; ++i)
     {
         reader >> currentNumber;
-        if (currentNumber > previousNumber)
+        if (currentNumber < previousNumber)
         {
             return false;
         }
