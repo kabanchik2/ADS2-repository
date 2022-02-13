@@ -15,7 +15,6 @@ bool createFileWithNumbers(std::string fileName, const int numbersCount, const i
         return false;
     }
 
-    writer << numbersCount << std::endl;
     for (int i = 0; i < numbersCount; ++i)
     {
         writer << rand() % (maxNumberValue + 1) << ' ';
@@ -32,23 +31,23 @@ bool isFileContainsSortedArray(std::string fileName)
 
     if (!reader.is_open())
     {
-        std::cerr << "can't open 'test.txt'!" << std::endl;
+        std::cerr << "can't open " << fileName << std::endl;
         return false;
     }
     
-    int numbersCount;
     int previousNumber;
     int currentNumber;
 
-    reader >> numbersCount;
     reader >> previousNumber;
-    for (int i = 0; i < numbersCount; ++i)
+    while (!reader.eof())
     {
         reader >> currentNumber;
         if (currentNumber < previousNumber)
         {
             return false;
         }
+
+        previousNumber = currentNumber;
     }
 
     reader.close();
