@@ -4,6 +4,8 @@
 #include <string>
 #include <random>
 
+#include "Files_Operations.h"
+
 
 bool createFileWithNumbers(std::string fileName, const int numbersCount, const int maxNumberValue)
 {
@@ -61,12 +63,4 @@ void createFileWithNumbersTest()
     const int maxNumberValue = 25;
     bool test = createFileWithNumbers(fileName, numbersCount, maxNumberValue);
     std::cout << test << std::endl;
-}
-
-
-int main()
-{
-    //fstreamFileWriteReadTest();
-    createFileWithNumbersTest();
-
 }
