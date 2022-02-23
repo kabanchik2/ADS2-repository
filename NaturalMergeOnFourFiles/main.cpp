@@ -102,15 +102,14 @@ void sort(const std::string fileName)
     F[1].close();
     A->close();
 
-    int i = 0;
     while (true)
     {  
-        std::cout << i << std::endl;
+
         S[1].open("f1.txt");
-        if (S[1].eof())
+        if (S[1].peek() == EOF)
         {
             S[1].close();
-            return;
+            break;
         }
         S[1].close();
         
@@ -127,10 +126,10 @@ void sort(const std::string fileName)
         S[1].close();
 
         S[1].open("f1.txt");
-        if (S[1].eof())
+        if (S[1].peek() == EOF)
         {
             S[1].close();
-            return;
+            break;
         }
         S[1].close();
 
@@ -145,24 +144,70 @@ void sort(const std::string fileName)
         S[0].close();
         S[1].close();
 
-        ++i;
     }  
 
-    F[0].close();
-    F[1].close();
-    S[0].close();
-    S[1].close();
+    A->open(fileName, std::fstream::out);
+    std::ifstream file("f0.txt");
+    int x;
+    while (!file.eof())
+    {
+        file >> x;
+        *A << x << ' ';
+    }
+
+    file.close();
+    A->close();
 }
 
-
-int main()
+int createAndSortFile(const std::string& fileName, const int numbersCount, const int maxNumberValue)
 {
-    const std::string fileName("A.txt");
-    const int numbersCount = 20;
-    const int maxNumberValue = 30;
-    createFileWithNumbers(fileName, numbersCount, maxNumberValue);
+    if (!createFileWithNumbers(fileName, numbersCount, maxNumberValue))
+    {
+        return -1;
+    }
 
     sort(fileName);
 
-    std::cout << "end " << std::endl;
+    if (!isFileContainsSortedArray(fileName))
+    {
+        return -2;
+    }
+    
+    return 1;
+}
+
+void testSort()
+{
+    std::string fileName = "A.txt";
+    const int numbersCount = 30;
+    const int maxNumberValue = 1000;
+
+    for (int i = 0; i < 10; i++)
+    {
+        switch (createAndSortFile(fileName, numbersCount, maxNumberValue)) {
+        case 1:
+            std::cout << "Test passed." << std::endl;
+            break;
+
+        case -1:
+            std::cout << "Test failed: can't create file." << std::endl;
+            break;
+
+        case -2:
+            std::cout << "Test failed: file isn't sorted." << std::endl;
+            break;
+        }
+    }
+}
+
+int main()
+{
+    testSort();
+
+   /* std::string fileName = "A.txt";
+    const int numbersCount = 30;
+    const int maxNumberValue = 50;
+
+    createFileWithNumbers(fileName, numbersCount, maxNumberValue);
+    sort(fileName);*/
 }
