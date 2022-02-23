@@ -140,7 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Files_Operations_Test.cpp" />
-    <ClCompile Include="NaturalMergeOnFourFiles.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Files_Operations.h" />
