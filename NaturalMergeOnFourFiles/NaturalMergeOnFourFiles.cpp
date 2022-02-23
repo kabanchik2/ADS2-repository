@@ -4,7 +4,7 @@
 
 #include "Files_Operations.h"
 
-void spliting(std::fstream* A, std::fstream* F)
+void spliting(std::fstream* A, std::ofstream* F)
 {
     int x1, x2;
     int n = 0;
@@ -22,7 +22,7 @@ void spliting(std::fstream* A, std::fstream* F)
     }
 }
 
-void merging(std::fstream* S, std::fstream* F)
+void merging(std::ifstream* S, std::ofstream* F)
 {
     int x[2], y[2];
     int n = 0, m = 0;
@@ -89,12 +89,12 @@ void merging(std::fstream* S, std::fstream* F)
 void sort(const std::string fileName)
 {
     std::fstream* A = new std::fstream;
-    std::fstream* S = new std::fstream[2];
-    std::fstream* F = new std::fstream[2];
+    std::ifstream* S = new std::ifstream[2];
+    std::ofstream* F = new std::ofstream[2];
 
     A->open(fileName, std::fstream::in);
-    F[0].open("f0.txt", std::fstream::out);
-    F[1].open("f1.txt", std::fstream::out);
+    F[0].open("f0.txt");
+    F[1].open("f1.txt");
 
     spliting(A, F);
 
@@ -105,39 +105,39 @@ void sort(const std::string fileName)
     int i = 0;
     while (true)
     {  
-        F[1].open("f1.txt");
-        if (F[1].eof())
-        {
-            F[1].close();
-            break;
-        }
-        F[1].close();
         std::cout << i << std::endl;
+        S[1].open("f1.txt");
+        if (S[1].eof())
+        {
+            S[1].close();
+            return;
+        }
+        S[1].close();
+        
 
-
-        F[0].open("f0.txt", std::fstream::in);
-        F[1].open("f1.txt", std::fstream::in);
-        S[0].open("s0.txt", std::fstream::out);
-        S[1].open("s1.txt", std::fstream::out);
-        merging(F, S);
+        S[0].open("f0.txt");
+        S[1].open("f1.txt");
+        F[0].open("s0.txt");
+        F[1].open("s1.txt");
+        merging(S, F);
 
         F[0].close();
         F[1].close();
         S[0].close();
         S[1].close();
 
-        S[1].open("s1.txt");
+        S[1].open("f1.txt");
         if (S[1].eof())
         {
             S[1].close();
-            break;
+            return;
         }
         S[1].close();
 
-        S[0].open("s0.txt", std::fstream::in);
-        S[1].open("s1.txt", std::fstream::in);
-        F[0].open("f0.txt", std::fstream::out);
-        F[1].open("f1.txt", std::fstream::out);
+        S[0].open("s0.txt");
+        S[1].open("s1.txt");
+        F[0].open("f0.txt");
+        F[1].open("f1.txt");
         merging(S, F);
 
         F[0].close();
