@@ -6,6 +6,12 @@
 
 void spliting(std::fstream* A, std::ofstream* F)
 {
+    if (!A->is_open() || !F[0].is_open() || !F[1].is_open())
+    {
+        std::cerr << "can't open file in 'merging' " << std::endl;
+        return;
+    }
+
     int x1, x2;
     int n = 0;
     *A >> x1;
@@ -24,6 +30,12 @@ void spliting(std::fstream* A, std::ofstream* F)
 
 void merging(std::ifstream* S, std::ofstream* F)
 {
+    if (!S[0].is_open() || !S[1].is_open() || !F[0].is_open() || !F[1].is_open())
+    {
+        std::cerr << "can't open file in 'merging' " << std::endl;
+        return;
+    }
+
     int x[2], y[2];
     int n = 0, m = 0;
 
