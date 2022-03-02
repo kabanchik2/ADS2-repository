@@ -18,6 +18,8 @@ class  BinaryTree
 public:
 	BinaryTree() = default;
 
+	Node* getRoot();
+
 private:
 	Node* m_root = nullptr;
 };
