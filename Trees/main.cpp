@@ -3,9 +3,25 @@
 
 #include <iostream>
 
+#include "BinaryTree.h"
+
 int main()
 {
-    std::cout << "Hello World!\n";
+	BinaryTree bt;
+	for (int i = 0; i < 10; i++)
+		bt.addNode(bt.getRoot(), i);
+
+	bt.printHorizontal();
+
+	std::cout << std::endl << std::endl << std::endl;
+
+	for (int i = 0; i < 10; i++)
+	{
+		bt.printLevel(i);
+		std::cout << std::endl;
+	}
+    
+    
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
