@@ -29,6 +29,9 @@ public:
 	void printLevel(const int level);
 	void printLevel(Node* subTreeRoot, const int level, const int currentLevel = 0);
 
+	Node* node(Node *subTreeRoot, int nodeIndex);
+	Node* node(const int nodeIndex);
+
 private:
 	Node* m_root = nullptr;
 };
