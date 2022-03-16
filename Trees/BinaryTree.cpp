@@ -4,6 +4,11 @@
 #include <random>
 #include <vector>
 
+BinaryTree::BinaryTree(const BinaryTree& other)
+{
+	copyTree(*other.m_root, m_root);
+}
+
 Node* BinaryTree::getRoot()
 {
 	return m_root;
@@ -149,6 +154,20 @@ Node* BinaryTree::node(Node* subTreeRoot, int nodeIndex)
 	else
 	{
 		return currentLevelNodes[nodeIndex];
+	}
+}
+
+void BinaryTree::copyTree(const Node& other, Node*& destination)
+{
+	if (&other == nullptr)
+	{
+		destination = nullptr;
+	}
+	else
+	{
+		destination = new Node(other.key);
+		copyTree(*other.leftChild, destination->leftChild);
+		copyTree(*other.rightChild, destination->rightChild);
 	}
 }
 

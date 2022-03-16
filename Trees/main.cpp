@@ -23,8 +23,6 @@ int main()
     
 	std::cout << std::endl << std::endl << std::endl;
 
-	
-    
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
