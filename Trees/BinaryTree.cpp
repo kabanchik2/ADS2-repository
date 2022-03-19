@@ -187,6 +187,21 @@ void BinaryTree::destroy(Node* subTreeRoot)
 	}
 }
 
+void BinaryTree::destroyChildTrees(Node* parentNode)
+{
+	if (parentNode)
+	{
+		if (parentNode->leftChild)
+			destroy(parentNode->leftChild);
+
+		if (parentNode->rightChild)
+			destroy(parentNode->rightChild);
+	}
+	
+	parentNode->leftChild = nullptr;
+	parentNode->rightChild = nullptr;
+}
+
 Node* BinaryTree::node(const int nodeIndex)
 {
 	return node(m_root, nodeIndex);

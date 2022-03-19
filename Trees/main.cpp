@@ -21,9 +21,10 @@ int main()
 		std::cout << std::endl;
 	}
     
-	std::cout << std::endl << std::endl << std::endl;
+	std::cout << std::endl << std::endl;
 
-	bt.destroy(bt.getRoot());
+	//bt.destroy(bt.getRoot());
+	bt.destroyChildTrees(bt.node(1));
 	bt.printHorizontal();
 }
 

@@ -48,6 +48,7 @@ public:
 
 	void copyTree(const Node& other, Node*& destination);
 	void destroy(Node* subTreeRoot);
+	void destroyChildTrees(Node* parentNode);
 
 private:
 	Node* m_root = nullptr;
