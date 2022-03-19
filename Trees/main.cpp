@@ -23,6 +23,8 @@ int main()
     
 	std::cout << std::endl << std::endl << std::endl;
 
+	bt.destroy(bt.getRoot());
+	bt.printHorizontal();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

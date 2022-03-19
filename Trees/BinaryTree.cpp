@@ -9,6 +9,11 @@ BinaryTree::BinaryTree(const BinaryTree& other)
 	copyTree(*other.m_root, m_root);
 }
 
+BinaryTree::~BinaryTree()
+{
+	destroy(m_root);
+}
+
 Node* BinaryTree::getRoot()
 {
 	return m_root;
@@ -168,6 +173,17 @@ void BinaryTree::copyTree(const Node& other, Node*& destination)
 		destination = new Node(other.key);
 		copyTree(*other.leftChild, destination->leftChild);
 		copyTree(*other.rightChild, destination->rightChild);
+	}
+}
+
+void BinaryTree::destroy(Node* subTreeRoot)
+{
+	if (subTreeRoot)
+	{
+		destroy(subTreeRoot->leftChild);
+		destroy(subTreeRoot->rightChild);
+
+		delete subTreeRoot;
 	}
 }
 

@@ -32,6 +32,7 @@ class  BinaryTree
 public:
 	BinaryTree() = default;
 	BinaryTree(const BinaryTree& other);
+	~BinaryTree();
 
 	Node* getRoot();
 	Node* addNode(Node* subTreeRoot, const int key);
@@ -46,6 +47,7 @@ public:
 	Node* node(Node *subTreeRoot, int nodeIndex); 
 
 	void copyTree(const Node& other, Node*& destination);
+	void destroy(Node* subTreeRoot);
 
 private:
 	Node* m_root = nullptr;
