@@ -10,6 +10,18 @@ struct Node
 		rightChild(rightChild)
 	{}
 
+	int getKey() { return key; };
+	int getChildsNumber()
+	{
+		int nChilds = 0;
+		if (leftChild)
+			nChilds++;
+		if (rightChild)
+			nChilds++;
+
+		return nChilds;
+	}
+
 	int key = 10;
 	Node* leftChild = nullptr;
 	Node* rightChild = nullptr;
