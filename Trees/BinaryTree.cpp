@@ -202,6 +202,27 @@ void BinaryTree::destroyChildTrees(Node* parentNode)
 	parentNode->rightChild = nullptr;
 }
 
+int BinaryTree::getDepth(const Node* subTreeRoot)
+{
+	if (subTreeRoot)
+	{
+		int left = getDepth(subTreeRoot->leftChild);
+		int right = getDepth(subTreeRoot->rightChild);
+
+		if (left > right)
+			return left + 1;
+		else
+			return right + 1;
+	}
+
+	return 0;
+}
+
+int BinaryTree::getDepth()
+{
+	return getDepth(m_root);
+}
+
 Node* BinaryTree::node(const int nodeIndex)
 {
 	return node(m_root, nodeIndex);

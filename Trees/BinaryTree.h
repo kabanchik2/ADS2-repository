@@ -50,6 +50,9 @@ public:
 	void destroy(Node* subTreeRoot);
 	void destroyChildTrees(Node* parentNode);
 
+	int getDepth(const Node* subTreeRoot);
+	int getDepth();
+
 private:
 	Node* m_root = nullptr;
 

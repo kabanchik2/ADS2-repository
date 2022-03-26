@@ -23,7 +23,7 @@ int main()
     
 	std::cout << std::endl << std::endl;
 
-	//bt.destroy(bt.getRoot());
+	std::cout << bt.getDepth() << std::endl;
 	bt.destroyChildTrees(bt.node(1));
 	bt.printHorizontal();
 }
