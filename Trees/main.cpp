@@ -7,25 +7,20 @@
 
 int main()
 {
+	//srand(time(0));
 	BinaryTree bt;
 	for (int i = 0; i < 10; i++)
 		bt.addNode(bt.getRoot(), i);
 
-	bt.printHorizontal();
+	//bt.printHorizontal();
+	bt.printVertical();
 
 	std::cout << std::endl << std::endl << std::endl;
 
-	for (int i = 0; i < 10; i++)
-	{
-		bt.printLevel(i);
-		std::cout << std::endl;
-	}
-    
-	std::cout << std::endl << std::endl;
 
-	std::cout << bt.getDepth() << std::endl;
-	bt.destroyChildTrees(bt.node(1));
-	bt.printHorizontal();
+	bt.deleteNode(bt.node(4));
+	bt.printVertical();
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
