@@ -285,9 +285,95 @@ int BinaryTree::getDepth(const Node* subTreeRoot)
 	return 0;
 }
 
+int BinaryTree::getNumberOfNodes(const Node* subTreeRoot)
+{
+	int count = 0;
+	if (subTreeRoot)
+	{
+		count++;
+		count += getNumberOfNodes(subTreeRoot->leftChild);
+		count += getNumberOfNodes(subTreeRoot->rightChild);
+	}
+
+	return count;
+}
+
+Node* BinaryTree::getNodeWithMinimumKey(Node* subTreeRoot)
+{
+	if (subTreeRoot == nullptr)
+	{
+		std::cerr << "error min: Tree is empty";
+	}
+
+	Node* min = subTreeRoot;
+	if (subTreeRoot->leftChild)
+	{
+		Node* minL = getNodeWithMinimumKey(subTreeRoot->leftChild);
+		if (min->getKey() > minL->getKey())
+		{
+			min = minL;
+		}
+	}
+
+	if (subTreeRoot->rightChild)
+	{
+		Node* minR = getNodeWithMinimumKey(subTreeRoot->rightChild);
+		if (min->getKey() > minR->getKey())
+		{
+			min = minR;
+		}
+	}
+
+	return min;
+}
+
+Node* BinaryTree::getNodeWithMaximumKey(Node* subTreeRoot)
+{
+	if (subTreeRoot == nullptr)
+	{
+		std::cerr << "error max: Tree is empty";
+	}
+
+	Node* max = subTreeRoot;
+	if (subTreeRoot->leftChild)
+	{
+		Node* maxL = getNodeWithMinimumKey(subTreeRoot->leftChild);
+		if (max->getKey() < maxL->getKey())
+		{
+			max = maxL;
+		}
+	}
+
+	if (subTreeRoot->rightChild)
+	{
+		Node* maxR = getNodeWithMinimumKey(subTreeRoot->rightChild);
+		if (max->getKey() < maxR->getKey())
+		{
+			max = maxR;
+		}
+	}
+
+	return max;
+}
+
 int BinaryTree::getDepth()
 {
 	return getDepth(m_root);
+}
+
+int BinaryTree::getNumberOfNodes()
+{
+	return getNumberOfNodes(m_root);
+}
+
+int BinaryTree::getMinimumKey()
+{
+	return getNodeWithMinimumKey(m_root)->getKey();
+}
+
+int BinaryTree::getMaximumKey()
+{
+	return getNodeWithMaximumKey(m_root)->getKey();
 }
 
 Node* BinaryTree::findParentByKey(Node* subTreeRoot, const int key)
@@ -321,6 +407,48 @@ Node* BinaryTree::findParentByKey(Node* subTreeRoot, const int key)
 	}
 
 	return nullptr;
+}
+
+Node* BinaryTree::getNodeWithEmptyChild(Node* subTreeRoot)
+{
+	if (subTreeRoot == nullptr)
+	{
+		std::cerr << "error getNodeWithEmptyChild: Tree is empty";
+	}
+
+	if (subTreeRoot->leftChild == nullptr || subTreeRoot->rightChild == nullptr)
+	{
+		return subTreeRoot;
+	}
+	else
+	{
+		int heightLeft = getDepth(subTreeRoot->leftChild);
+		int heightRight = getDepth(subTreeRoot->rightChild);
+
+		if (heightLeft < heightRight)
+		{
+			return getNodeWithEmptyChild(subTreeRoot->leftChild);
+		}
+		else if (heightLeft < heightRight)
+		{
+			return getNodeWithEmptyChild(subTreeRoot->rightChild);
+		}
+		else
+		{
+			int countLeft = getNumberOfNodes(subTreeRoot->leftChild);
+			int countRight = getNumberOfNodes(subTreeRoot->rightChild);
+
+			if (countLeft < countRight)
+			{
+				return getNodeWithEmptyChild(subTreeRoot->leftChild);
+			}
+			else
+			{
+				return getNodeWithEmptyChild(subTreeRoot->rightChild);
+			}
+		}
+	}
+
 }
 
 Node* BinaryTree::findParentByKey(const int key)
@@ -404,24 +532,62 @@ bool BinaryTree::deleteNode(Node* nodeToDelete)
 		{
 			if (parent->leftChild == nodeToDelete)
 			{
-				///TODO
+				parent->leftChild = nodeToDelete->leftChild;
+				Node* nodeToAdd = getNodeWithEmptyChild(parent);
+
+				if (nodeToAdd->rightChild == nullptr)
+				{
+					nodeToAdd->rightChild = nodeToDelete->rightChild;
+				}
+				else
+				{
+					nodeToAdd->leftChild = nodeToDelete->rightChild;
+				}
 			}
 
 			if (parent->rightChild == nodeToDelete)
 			{
-				///TODO
+				parent->rightChild = nodeToDelete->rightChild;
+				Node* nodeToAdd = getNodeWithEmptyChild(parent);
+
+				if (nodeToAdd->leftChild == nullptr)
+				{
+					nodeToAdd->leftChild = nodeToDelete->leftChild;
+				}
+				else
+				{
+					nodeToAdd->rightChild = nodeToDelete->leftChild;
+				}
 			}
 		}
+		else
+		{
+			m_root = nodeToDelete->leftChild;
+			Node* nodeToAdd = getNodeWithEmptyChild(m_root);
+			if (nodeToAdd->rightChild == nullptr)
+			{
+				nodeToAdd->rightChild = nodeToDelete->rightChild;
+			}
+			else
+			{
+				nodeToAdd->leftChild = nodeToDelete->rightChild;
+			}
+		}
+		delete nodeToDelete;
+
+		return true;
 	}
 
 
 
 
 
-
-
-
 	return false;
+}
+
+bool BinaryTree::isEmpty()
+{
+	return m_root == nullptr;
 }
 
 Node* BinaryTree::node(const int nodeIndex)

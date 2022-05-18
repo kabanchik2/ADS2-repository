@@ -51,11 +51,16 @@ public:
 	void destroyChildTrees(Node* parentNode);
 
 	int getDepth();
+	int getNumberOfNodes();
+
+	int getMinimumKey();
+	int getMaximumKey();
 
 	Node* findParentByKey(const int key);
 
 	bool deleteNode(Node* nodeToDelete);
 
+	bool isEmpty();
 
 protected:
 	void printHorizontal(Node* subTreeRoot, const int level = 0);
@@ -66,8 +71,14 @@ protected:
 	Node* node(Node* subTreeRoot, int nodeIndex);
 
 	int getDepth(const Node* subTreeRoot);
+	int getNumberOfNodes(const Node* subTreeRoot);
+
+	Node* getNodeWithMinimumKey(Node* subTreeRoot);
+	Node* getNodeWithMaximumKey(Node* subTreeRoot);
 
 	Node* findParentByKey(Node* subTreeRoot, const int key);
+
+	Node* getNodeWithEmptyChild(Node* subTreeRoot);
 
 
 private:
