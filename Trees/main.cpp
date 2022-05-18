@@ -18,9 +18,14 @@ int main()
 	std::cout << std::endl << std::endl << std::endl;
 
 
-	bt.deleteNode(bt.node(4));
-	bt.printVertical();
+	//bt.deleteNode(bt.node(4));
+	//bt.printVertical();
 
+	std::vector<int> keys(bt.getAllKeys());
+	for (int key : keys)
+	{
+		std::cout << key << " ";
+	}
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
