@@ -429,7 +429,7 @@ Node* BinaryTree::getNodeWithEmptyChild(Node* subTreeRoot)
 		{
 			return getNodeWithEmptyChild(subTreeRoot->leftChild);
 		}
-		else if (heightLeft < heightRight)
+		else if (heightLeft > heightRight)
 		{
 			return getNodeWithEmptyChild(subTreeRoot->rightChild);
 		}
