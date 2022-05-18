@@ -62,6 +62,8 @@ public:
 
 	bool isEmpty();
 
+	std::vector<int> getAllKeys();
+
 protected:
 	void printHorizontal(Node* subTreeRoot, const int level = 0);
 	void printVertical(Node* subTreeRoot);
@@ -80,7 +82,7 @@ protected:
 
 	Node* getNodeWithEmptyChild(Node* subTreeRoot);
 
-
+	std::vector<int> getAllKeys(Node* subTreeRoot);
 private:
 	Node* m_root = nullptr;
 

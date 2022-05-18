@@ -451,6 +451,42 @@ Node* BinaryTree::getNodeWithEmptyChild(Node* subTreeRoot)
 
 }
 
+std::vector<int> BinaryTree::getAllKeys(Node* subTreeRoot)
+{
+	if (subTreeRoot == nullptr)
+		return std::vector<int>();
+
+	std::vector<int> keys;
+	std::vector<Node*> currentLevelNodes;
+	currentLevelNodes.push_back(subTreeRoot);
+	keys.push_back(subTreeRoot->getKey());
+	
+	while (currentLevelNodes.size() != 0)
+	{
+		std::vector<Node*> nextLevelNodes;
+		nextLevelNodes.reserve(currentLevelNodes.size() * 2);
+
+		for (Node* node : currentLevelNodes)
+		{
+			if (node->leftChild)
+			{
+				nextLevelNodes.push_back(node->leftChild);
+				keys.push_back(node->leftChild->getKey());
+			}
+			
+			if (node->rightChild)
+			{
+				nextLevelNodes.push_back(node->rightChild);
+				keys.push_back(node->rightChild->getKey());
+			}
+		}
+
+		currentLevelNodes.swap(nextLevelNodes);
+	}
+
+	return keys;
+}
+
 Node* BinaryTree::findParentByKey(const int key)
 {
 	return findParentByKey(m_root, key);
@@ -588,6 +624,11 @@ bool BinaryTree::deleteNode(Node* nodeToDelete)
 bool BinaryTree::isEmpty()
 {
 	return m_root == nullptr;
+}
+
+std::vector<int> BinaryTree::getAllKeys()
+{
+	return getAllKeys(m_root);
 }
 
 Node* BinaryTree::node(const int nodeIndex)
