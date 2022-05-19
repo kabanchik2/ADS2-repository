@@ -379,14 +379,14 @@ int BinaryTree::getMaximumKey()
 Node* BinaryTree::findParentByKey(Node* subTreeRoot, const int key)
 {
 
-	if (m_root->getKey() == key)
+	if (m_root->getKey() == key && m_root)
 	{
 		return nullptr;
 	}
 
 	if (subTreeRoot)
 	{
-		if (subTreeRoot->leftChild && subTreeRoot->rightChild)
+		if (subTreeRoot->leftChild || subTreeRoot->rightChild)
 		{
 			if (subTreeRoot->leftChild->getKey() == key || subTreeRoot->rightChild->getKey() == key)
 			{
@@ -407,6 +407,42 @@ Node* BinaryTree::findParentByKey(Node* subTreeRoot, const int key)
 	}
 
 	return nullptr;
+}
+
+Node* BinaryTree::findByKey(Node* subTreeRoot, const int key)
+{
+	if (subTreeRoot)
+	{
+		if (subTreeRoot->getKey() == key)
+		{
+			return subTreeRoot;
+		}
+		else
+		{
+			Node* left = findByKey(subTreeRoot->leftChild, key);
+			Node* right = findByKey(subTreeRoot->rightChild, key);
+
+			if (left && left->getKey() == key)
+			{
+				return left;
+			}
+
+			if (right && right->getKey() == key)
+			{
+				return right;
+			}
+
+			return nullptr;
+		}
+	}
+
+	return nullptr;
+}
+
+bool BinaryTree::findAneDeleteByKey(Node* subTreeRoot, const int key)
+{
+	Node* toDelete = findByKey(subTreeRoot, key);
+	return deleteNode(toDelete);
 }
 
 Node* BinaryTree::getNodeWithEmptyChild(Node* subTreeRoot)
@@ -490,6 +526,11 @@ std::vector<int> BinaryTree::getAllKeys(Node* subTreeRoot)
 Node* BinaryTree::findParentByKey(const int key)
 {
 	return findParentByKey(m_root, key);
+}
+
+Node* BinaryTree::findByKey(const int key)
+{
+	return findByKey(m_root, key);
 }
 
 bool BinaryTree::deleteNode(Node* nodeToDelete)
@@ -619,6 +660,11 @@ bool BinaryTree::deleteNode(Node* nodeToDelete)
 
 
 	return false;
+}
+
+bool BinaryTree::findAneDeleteByKey(const int key)
+{
+	return findAneDeleteByKey(m_root, key);
 }
 
 bool BinaryTree::isEmpty()

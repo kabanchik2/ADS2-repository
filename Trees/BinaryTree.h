@@ -57,8 +57,10 @@ public:
 	int getMaximumKey();
 
 	Node* findParentByKey(const int key);
+	Node* findByKey(const int key);
 
 	bool deleteNode(Node* nodeToDelete);
+	bool findAneDeleteByKey(const int key);
 
 	bool isEmpty();
 
@@ -79,6 +81,9 @@ protected:
 	Node* getNodeWithMaximumKey(Node* subTreeRoot);
 
 	Node* findParentByKey(Node* subTreeRoot, const int key);
+	Node* findByKey(Node* subTreeRoot, const int key);
+
+	bool findAneDeleteByKey(Node* subTreeRoot, const int key);
 
 	Node* getNodeWithEmptyChild(Node* subTreeRoot);
 
