@@ -60,7 +60,7 @@ public:
 	Node* findByKey(const int key);
 
 	bool deleteNode(Node* nodeToDelete);
-	bool findAneDeleteByKey(const int key);
+	bool findAndDeleteByKey(const int key);
 
 	bool isEmpty();
 
@@ -83,7 +83,7 @@ protected:
 	Node* findParentByKey(Node* subTreeRoot, const int key);
 	Node* findByKey(Node* subTreeRoot, const int key);
 
-	bool findAneDeleteByKey(Node* subTreeRoot, const int key);
+	bool findAndDeleteByKey(Node* subTreeRoot, const int key);
 
 	Node* getNodeWithEmptyChild(Node* subTreeRoot);
 

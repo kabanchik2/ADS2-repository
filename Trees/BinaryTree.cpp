@@ -71,7 +71,7 @@ void BinaryTree::printHorizontal(Node* subTreeRoot, const int level)
 	{
 		if (subTreeRoot == m_root) 
 		{
-			cout << "Tree is empty" << endl;
+			cout << "error printHorizontal: Tree is empty" << endl;
 		}
 		return;
 	}
@@ -90,7 +90,7 @@ void BinaryTree::printVertical(Node* subTreeRoot)
 {
 	if (subTreeRoot == nullptr)
 	{
-		std::cout << "Tree is empty" << std::endl;
+		std::cout << "error printVertical: Tree is empty" << std::endl;
 		return;
 	}
 
@@ -166,12 +166,16 @@ void BinaryTree::printLevel(Node* subTreeRoot, const int level, const int curren
 		{
 			cout << "Tree is empty" << endl;
 		}
+		else
+		{
+			cout << "X ";
+		}
 		return;
 	}
 
 	if (currentLevel == level) 
 	{
-		cout << subTreeRoot->key << "   ";
+		cout << subTreeRoot->key << " ";
 	}
 	else if (currentLevel < level) 
 	{
@@ -388,7 +392,7 @@ Node* BinaryTree::findParentByKey(Node* subTreeRoot, const int key)
 	{
 		if (subTreeRoot->leftChild || subTreeRoot->rightChild)
 		{
-			if (subTreeRoot->leftChild->getKey() == key || subTreeRoot->rightChild->getKey() == key)
+			if ((subTreeRoot->leftChild && subTreeRoot->leftChild->getKey() == key) || (subTreeRoot->rightChild && subTreeRoot->rightChild->getKey() == key))
 			{
 				return subTreeRoot;
 			}
@@ -439,7 +443,7 @@ Node* BinaryTree::findByKey(Node* subTreeRoot, const int key)
 	return nullptr;
 }
 
-bool BinaryTree::findAneDeleteByKey(Node* subTreeRoot, const int key)
+bool BinaryTree::findAndDeleteByKey(Node* subTreeRoot, const int key)
 {
 	Node* toDelete = findByKey(subTreeRoot, key);
 	return deleteNode(toDelete);
@@ -535,6 +539,12 @@ Node* BinaryTree::findByKey(const int key)
 
 bool BinaryTree::deleteNode(Node* nodeToDelete)
 {
+	if (nodeToDelete == nullptr)
+	{
+		std::cerr << "error deleteNode: empty node" << std::endl;
+		return false;
+	}
+
 	if (nodeToDelete->leftChild == nullptr && nodeToDelete->rightChild == nullptr)
 	{
 		Node* parent = findParentByKey(nodeToDelete->getKey());
@@ -662,9 +672,9 @@ bool BinaryTree::deleteNode(Node* nodeToDelete)
 	return false;
 }
 
-bool BinaryTree::findAneDeleteByKey(const int key)
+bool BinaryTree::findAndDeleteByKey(const int key)
 {
-	return findAneDeleteByKey(m_root, key);
+	return findAndDeleteByKey(m_root, key);
 }
 
 bool BinaryTree::isEmpty()
