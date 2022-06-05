@@ -4,28 +4,24 @@
 #include <iostream>
 
 #include "BinaryTree.h"
+#include "BinarySearchTree.h"
 
 int main()
 {
-	//srand(time(0));
-	BinaryTree bt;
+	srand(time(0));
+
+	BinarySearchTree bst;
+
+	int key;
 	for (int i = 0; i < 10; i++)
-		bt.addNode(bt.getRoot(), i);
-
-	//bt.printHorizontal();
-	bt.printVertical();
-
-	std::cout << std::endl << std::endl << std::endl;
-
-
-	//bt.deleteNode(bt.node(4));
-	//bt.printVertical();
-
-	std::vector<int> keys(bt.getAllKeys());
-	for (int key : keys)
 	{
-		std::cout << key << " ";
+		key = 1 + rand() % 15;
+		bst.addNode(key);
 	}
+
+	bst.printVertical();
+	
+	std::cout << bst.getMinimumKey();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
