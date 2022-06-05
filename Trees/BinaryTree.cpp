@@ -19,6 +19,11 @@ Node* BinaryTree::getRoot()
 	return m_root;
 }
 
+bool BinaryTree::addNode(const int key)
+{
+	return addNode(m_root, key) != nullptr;
+}
+
 Node* BinaryTree::addNode(Node* subTreeRoot, const int key)
 {
 	if (subTreeRoot == nullptr)
