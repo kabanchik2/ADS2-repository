@@ -35,7 +35,8 @@ public:
 	~BinaryTree();
 
 	Node* getRoot();
-	Node* addNode(Node* subTreeRoot, const int key);
+	virtual bool addNode(const int key);
+	
 
 	void printHorizontal();
 	void printVertical();
@@ -53,8 +54,8 @@ public:
 	int getDepth();
 	int getNumberOfNodes();
 
-	int getMinimumKey();
-	int getMaximumKey();
+	virtual int getMinimumKey();
+	virtual int getMaximumKey();
 
 	Node* findParentByKey(const int key);
 	Node* findByKey(const int key);
@@ -67,6 +68,8 @@ public:
 	std::vector<int> getAllKeys();
 
 protected:
+	Node* addNode(Node* subTreeRoot, const int key);
+
 	void printHorizontal(Node* subTreeRoot, const int level = 0);
 	void printVertical(Node* subTreeRoot);
 
@@ -77,8 +80,8 @@ protected:
 	int getDepth(const Node* subTreeRoot);
 	int getNumberOfNodes(const Node* subTreeRoot);
 
-	Node* getNodeWithMinimumKey(Node* subTreeRoot);
-	Node* getNodeWithMaximumKey(Node* subTreeRoot);
+	virtual Node* getNodeWithMinimumKey(Node* subTreeRoot);
+	virtual Node* getNodeWithMaximumKey(Node* subTreeRoot);
 
 	Node* findParentByKey(Node* subTreeRoot, const int key);
 	Node* findByKey(Node* subTreeRoot, const int key);
@@ -88,7 +91,8 @@ protected:
 	Node* getNodeWithEmptyChild(Node* subTreeRoot);
 
 	std::vector<int> getAllKeys(Node* subTreeRoot);
-private:
+
+//private:
 	Node* m_root = nullptr;
 
 };
