@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include "BinaryTree.h"
+//#include "BinaryTree.h"
 #include "BinarySearchTree.h"
 
 int main()
@@ -12,28 +12,50 @@ int main()
 
 	BinarySearchTree bst;
 
-	int key;
+	/*int key;
 	for (int i = 0; i < 10; i++)
 	{
 		key = 1 + rand() % 15;
 		bst.addNode(key);
-	}
+	}*/
+
+	bst.addNode(5);
+	bst.addNode(2);
+	bst.addNode(8);
+	bst.addNode(1);
+	bst.addNode(3);
+	bst.addNode(6);
+	bst.addNode(10);
+	bst.addNode(9);
+	bst.addNode(10);
+
+	bst.printVertical();
+
+	bst.findAndDeleteByKey(5);
 
 	bst.printVertical();
 	
-	std::cout << bst.getMinimumKey() << ' ' << bst.getMaximumKey() << std::endl;
+	//std::cout << bst.getMinimumKey() << ' ' << bst.getMaximumKey() << std::endl;
 
-	BinaryTree* tree = &bst;
+	/*BinaryTree* tree = &bst;
 
 	tree->destroy();
 
-	for (int i = 0; i < 10; i++)
-	{
-		key = 1 + rand() % 15;
-		tree->addNode(key);
-	}
+	tree->addNode(5);
+	tree->addNode(2);
+	tree->addNode(8);
+	tree->addNode(1);
+	tree->addNode(3);
+	tree->addNode(6);
+	tree->addNode(10);
+	tree->addNode(9);
+	tree->addNode(10);
 
 	tree->printVertical();
+
+	tree->findAndDeleteByKey(9);
+
+	tree->printVertical();*/
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
