@@ -19,6 +19,11 @@ Node* BinaryTree::getRoot()
 	return m_root;
 }
 
+bool BinaryTree::addNode(const int key)
+{
+	return addNode(m_root, key) != nullptr;
+}
+
 Node* BinaryTree::addNode(Node* subTreeRoot, const int key)
 {
 	if (subTreeRoot == nullptr)
@@ -98,7 +103,7 @@ void BinaryTree::printVertical(Node* subTreeRoot)
 	currentLevelNodes.push_back(subTreeRoot);
 	int significant = 1;
 	int level = 1;
-	int h = getDepth(subTreeRoot);
+	int h = getHeight(subTreeRoot);
 
 	while (significant != 0)
 	{
@@ -244,6 +249,11 @@ void BinaryTree::copyTree(const Node& other, Node*& destination)
 	}
 }
 
+void BinaryTree::destroy()
+{
+	destroy(m_root);
+}
+
 void BinaryTree::destroy(Node* subTreeRoot)
 {
 	if (subTreeRoot)
@@ -251,10 +261,12 @@ void BinaryTree::destroy(Node* subTreeRoot)
 		destroy(subTreeRoot->leftChild);
 		destroy(subTreeRoot->rightChild);
 
-		delete subTreeRoot;
-
 		if (subTreeRoot == m_root)
 			m_root = nullptr;
+
+		delete subTreeRoot;
+
+		
 	}
 }
 
@@ -273,12 +285,12 @@ void BinaryTree::destroyChildTrees(Node* parentNode)
 	parentNode->rightChild = nullptr;
 }
 
-int BinaryTree::getDepth(const Node* subTreeRoot)
+int BinaryTree::getHeight(const Node* subTreeRoot)
 {
 	if (subTreeRoot)
 	{
-		int left = getDepth(subTreeRoot->leftChild);
-		int right = getDepth(subTreeRoot->rightChild);
+		int left = getHeight(subTreeRoot->leftChild);
+		int right = getHeight(subTreeRoot->rightChild);
 
 		if (left > right)
 			return left + 1;
@@ -360,9 +372,9 @@ Node* BinaryTree::getNodeWithMaximumKey(Node* subTreeRoot)
 	return max;
 }
 
-int BinaryTree::getDepth()
+int BinaryTree::getHeight()
 {
-	return getDepth(m_root);
+	return getHeight(m_root);
 }
 
 int BinaryTree::getNumberOfNodes()
@@ -446,7 +458,8 @@ Node* BinaryTree::findByKey(Node* subTreeRoot, const int key)
 bool BinaryTree::findAndDeleteByKey(Node* subTreeRoot, const int key)
 {
 	Node* toDelete = findByKey(subTreeRoot, key);
-	return deleteNode(toDelete);
+	Node* parent = findParentByKey(subTreeRoot, key);
+	return deleteNode(toDelete, parent);
 }
 
 Node* BinaryTree::getNodeWithEmptyChild(Node* subTreeRoot)
@@ -455,40 +468,42 @@ Node* BinaryTree::getNodeWithEmptyChild(Node* subTreeRoot)
 	{
 		std::cerr << "error getNodeWithEmptyChild: Tree is empty";
 	}
-
-	if (subTreeRoot->leftChild == nullptr || subTreeRoot->rightChild == nullptr)
-	{
-		return subTreeRoot;
-	}
 	else
 	{
-		int heightLeft = getDepth(subTreeRoot->leftChild);
-		int heightRight = getDepth(subTreeRoot->rightChild);
-
-		if (heightLeft < heightRight)
+		if (subTreeRoot->leftChild == nullptr || subTreeRoot->rightChild == nullptr)
 		{
-			return getNodeWithEmptyChild(subTreeRoot->leftChild);
-		}
-		else if (heightLeft > heightRight)
-		{
-			return getNodeWithEmptyChild(subTreeRoot->rightChild);
+			return subTreeRoot;
 		}
 		else
 		{
-			int countLeft = getNumberOfNodes(subTreeRoot->leftChild);
-			int countRight = getNumberOfNodes(subTreeRoot->rightChild);
+			int heightLeft = getHeight(subTreeRoot->leftChild);
+			int heightRight = getHeight(subTreeRoot->rightChild);
 
-			if (countLeft < countRight)
+			if (heightLeft < heightRight)
 			{
 				return getNodeWithEmptyChild(subTreeRoot->leftChild);
 			}
-			else
+			else if (heightLeft > heightRight)
 			{
 				return getNodeWithEmptyChild(subTreeRoot->rightChild);
 			}
+			else
+			{
+				int countLeft = getNumberOfNodes(subTreeRoot->leftChild);
+				int countRight = getNumberOfNodes(subTreeRoot->rightChild);
+
+				if (countLeft < countRight)
+				{
+					return getNodeWithEmptyChild(subTreeRoot->leftChild);
+				}
+				else
+				{
+					return getNodeWithEmptyChild(subTreeRoot->rightChild);
+				}
+			}
 		}
 	}
-
+	
 }
 
 std::vector<int> BinaryTree::getAllKeys(Node* subTreeRoot)
@@ -537,7 +552,7 @@ Node* BinaryTree::findByKey(const int key)
 	return findByKey(m_root, key);
 }
 
-bool BinaryTree::deleteNode(Node* nodeToDelete)
+bool BinaryTree::deleteNode(Node* nodeToDelete, Node* parent)
 {
 	if (nodeToDelete == nullptr)
 	{
@@ -547,8 +562,6 @@ bool BinaryTree::deleteNode(Node* nodeToDelete)
 
 	if (nodeToDelete->leftChild == nullptr && nodeToDelete->rightChild == nullptr)
 	{
-		Node* parent = findParentByKey(nodeToDelete->getKey());
-
 		if (parent)
 		{
 			if (parent->leftChild == nodeToDelete)
@@ -569,8 +582,6 @@ bool BinaryTree::deleteNode(Node* nodeToDelete)
 
 	if (nodeToDelete->leftChild == nullptr && nodeToDelete->rightChild != nullptr)
 	{
-		Node* parent = findParentByKey(nodeToDelete->getKey());
-
 		if (parent)
 		{
 			if (parent->leftChild == nodeToDelete)
@@ -591,8 +602,6 @@ bool BinaryTree::deleteNode(Node* nodeToDelete)
 
 	if (nodeToDelete->leftChild != nullptr && nodeToDelete->rightChild == nullptr)
 	{
-		Node* parent = findParentByKey(nodeToDelete->getKey());
-
 		if (parent)
 		{
 			if (parent->leftChild == nodeToDelete)
@@ -613,8 +622,6 @@ bool BinaryTree::deleteNode(Node* nodeToDelete)
 
 	if (nodeToDelete->leftChild && nodeToDelete->rightChild)
 	{
-		Node* parent = findParentByKey(nodeToDelete->getKey());
-
 		if (parent)
 		{
 			if (parent->leftChild == nodeToDelete)

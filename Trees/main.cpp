@@ -3,29 +3,59 @@
 
 #include <iostream>
 
-#include "BinaryTree.h"
+//#include "BinaryTree.h"
+#include "BinarySearchTree.h"
 
 int main()
 {
-	//srand(time(0));
-	BinaryTree bt;
+	srand(time(0));
+
+	BinarySearchTree bst;
+
+	/*int key;
 	for (int i = 0; i < 10; i++)
-		bt.addNode(bt.getRoot(), i);
-
-	//bt.printHorizontal();
-	bt.printVertical();
-
-	std::cout << std::endl << std::endl << std::endl;
-
-
-	//bt.deleteNode(bt.node(4));
-	//bt.printVertical();
-
-	std::vector<int> keys(bt.getAllKeys());
-	for (int key : keys)
 	{
-		std::cout << key << " ";
-	}
+		key = 1 + rand() % 15;
+		bst.addNode(key);
+	}*/
+
+	bst.addNode(5);
+	bst.addNode(2);
+	bst.addNode(8);
+	bst.addNode(1);
+	bst.addNode(3);
+	bst.addNode(6);
+	bst.addNode(10);
+	bst.addNode(9);
+	bst.addNode(10);
+
+	bst.printVertical();
+
+	bst.findAndDeleteByKey(5);
+
+	bst.printVertical();
+	
+	//std::cout << bst.getMinimumKey() << ' ' << bst.getMaximumKey() << std::endl;
+
+	/*BinaryTree* tree = &bst;
+
+	tree->destroy();
+
+	tree->addNode(5);
+	tree->addNode(2);
+	tree->addNode(8);
+	tree->addNode(1);
+	tree->addNode(3);
+	tree->addNode(6);
+	tree->addNode(10);
+	tree->addNode(9);
+	tree->addNode(10);
+
+	tree->printVertical();
+
+	tree->findAndDeleteByKey(9);
+
+	tree->printVertical();*/
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

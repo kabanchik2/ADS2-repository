@@ -35,38 +35,40 @@ public:
 	~BinaryTree();
 
 	Node* getRoot();
-	Node* addNode(Node* subTreeRoot, const int key);
+	virtual bool addNode(const int key);
+	
 
 	void printHorizontal();
 	void printVertical();
 
 	void printLevel(const int level);
 	
-
 	Node* node(const int nodeIndex);
 	
-
 	void copyTree(const Node& other, Node*& destination);
-	void destroy(Node* subTreeRoot);
+	void destroy();
 	void destroyChildTrees(Node* parentNode);
 
-	int getDepth();
+	int getHeight();
 	int getNumberOfNodes();
 
-	int getMinimumKey();
-	int getMaximumKey();
+	virtual int getMinimumKey();
+	virtual int getMaximumKey();
 
 	Node* findParentByKey(const int key);
-	Node* findByKey(const int key);
+	virtual Node* findByKey(const int key);
 
-	bool deleteNode(Node* nodeToDelete);
-	bool findAndDeleteByKey(const int key);
+	virtual bool findAndDeleteByKey(const int key);
 
 	bool isEmpty();
 
 	std::vector<int> getAllKeys();
 
 protected:
+	Node* addNode(Node* subTreeRoot, const int key);
+
+	void destroy(Node* subTreeRoot);
+
 	void printHorizontal(Node* subTreeRoot, const int level = 0);
 	void printVertical(Node* subTreeRoot);
 
@@ -74,21 +76,24 @@ protected:
 
 	Node* node(Node* subTreeRoot, int nodeIndex);
 
-	int getDepth(const Node* subTreeRoot);
+	int getHeight(const Node* subTreeRoot);
 	int getNumberOfNodes(const Node* subTreeRoot);
 
-	Node* getNodeWithMinimumKey(Node* subTreeRoot);
-	Node* getNodeWithMaximumKey(Node* subTreeRoot);
+	virtual Node* getNodeWithMinimumKey(Node* subTreeRoot);
+	virtual Node* getNodeWithMaximumKey(Node* subTreeRoot);
 
-	Node* findParentByKey(Node* subTreeRoot, const int key);
-	Node* findByKey(Node* subTreeRoot, const int key);
+	virtual Node* findParentByKey(Node* subTreeRoot, const int key);
+	virtual Node* findByKey(Node* subTreeRoot, const int key);
 
-	bool findAndDeleteByKey(Node* subTreeRoot, const int key);
+	virtual bool findAndDeleteByKey(Node* subTreeRoot, const int key);
+
+	virtual bool deleteNode(Node* nodeToDelete, Node* parent);
 
 	Node* getNodeWithEmptyChild(Node* subTreeRoot);
 
 	std::vector<int> getAllKeys(Node* subTreeRoot);
-private:
+
+//private:
 	Node* m_root = nullptr;
 
 };
