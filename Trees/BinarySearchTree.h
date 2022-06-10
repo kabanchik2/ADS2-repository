@@ -14,8 +14,11 @@ public:
 	int getMinimumKey() override;
 	int getMaximumKey() override;
 
+	Node* findByKey(const int key) override;
+
 protected:
 	Node* getNodeWithMinimumKey(Node* subTreeRoot) override;
 	Node* getNodeWithMaximumKey(Node* subTreeRoot) override;
+
 };
 

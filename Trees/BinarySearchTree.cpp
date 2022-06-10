@@ -60,6 +60,36 @@ int BinarySearchTree::getMaximumKey()
 	return getNodeWithMaximumKey(m_root)->getKey();
 }
 
+Node* BinarySearchTree::findByKey(const int key)
+{
+	if (m_root == nullptr)
+	{
+		return nullptr;
+	}
+
+	Node* tmp = m_root;
+	while (tmp->leftChild && key < tmp->getKey() || tmp->rightChild && key > tmp->getKey())
+	{
+		if (key < tmp->getKey())
+		{
+			tmp = tmp->leftChild;
+		}
+		else
+		{
+			tmp = tmp->rightChild;
+		}
+	}
+
+	if (key == tmp->getKey())
+	{
+		return tmp;
+	}
+	else
+	{
+		return nullptr;
+	}
+}
+
 Node* BinarySearchTree::getNodeWithMinimumKey(Node* subTreeRoot)
 {
 	if (subTreeRoot == nullptr)
