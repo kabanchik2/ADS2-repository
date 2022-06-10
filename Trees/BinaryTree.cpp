@@ -103,7 +103,7 @@ void BinaryTree::printVertical(Node* subTreeRoot)
 	currentLevelNodes.push_back(subTreeRoot);
 	int significant = 1;
 	int level = 1;
-	int h = getDepth(subTreeRoot);
+	int h = getHeight(subTreeRoot);
 
 	while (significant != 0)
 	{
@@ -249,6 +249,11 @@ void BinaryTree::copyTree(const Node& other, Node*& destination)
 	}
 }
 
+void BinaryTree::destroy()
+{
+	destroy(m_root);
+}
+
 void BinaryTree::destroy(Node* subTreeRoot)
 {
 	if (subTreeRoot)
@@ -256,10 +261,12 @@ void BinaryTree::destroy(Node* subTreeRoot)
 		destroy(subTreeRoot->leftChild);
 		destroy(subTreeRoot->rightChild);
 
-		delete subTreeRoot;
-
 		if (subTreeRoot == m_root)
 			m_root = nullptr;
+
+		delete subTreeRoot;
+
+		
 	}
 }
 
@@ -278,12 +285,12 @@ void BinaryTree::destroyChildTrees(Node* parentNode)
 	parentNode->rightChild = nullptr;
 }
 
-int BinaryTree::getDepth(const Node* subTreeRoot)
+int BinaryTree::getHeight(const Node* subTreeRoot)
 {
 	if (subTreeRoot)
 	{
-		int left = getDepth(subTreeRoot->leftChild);
-		int right = getDepth(subTreeRoot->rightChild);
+		int left = getHeight(subTreeRoot->leftChild);
+		int right = getHeight(subTreeRoot->rightChild);
 
 		if (left > right)
 			return left + 1;
@@ -365,9 +372,9 @@ Node* BinaryTree::getNodeWithMaximumKey(Node* subTreeRoot)
 	return max;
 }
 
-int BinaryTree::getDepth()
+int BinaryTree::getHeight()
 {
-	return getDepth(m_root);
+	return getHeight(m_root);
 }
 
 int BinaryTree::getNumberOfNodes()
@@ -467,8 +474,8 @@ Node* BinaryTree::getNodeWithEmptyChild(Node* subTreeRoot)
 	}
 	else
 	{
-		int heightLeft = getDepth(subTreeRoot->leftChild);
-		int heightRight = getDepth(subTreeRoot->rightChild);
+		int heightLeft = getHeight(subTreeRoot->leftChild);
+		int heightRight = getHeight(subTreeRoot->rightChild);
 
 		if (heightLeft < heightRight)
 		{
