@@ -21,7 +21,19 @@ int main()
 
 	bst.printVertical();
 	
-	std::cout << bst.getMinimumKey();
+	std::cout << bst.getMinimumKey() << ' ' << bst.getMaximumKey() << std::endl;
+
+	BinaryTree* tree = &bst;
+
+	tree->destroy();
+
+	for (int i = 0; i < 10; i++)
+	{
+		key = 1 + rand() % 15;
+		tree->addNode(key);
+	}
+
+	tree->printVertical();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
