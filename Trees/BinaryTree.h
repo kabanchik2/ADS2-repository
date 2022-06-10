@@ -43,10 +43,8 @@ public:
 
 	void printLevel(const int level);
 	
-
 	Node* node(const int nodeIndex);
 	
-
 	void copyTree(const Node& other, Node*& destination);
 	void destroy();
 	void destroyChildTrees(Node* parentNode);
@@ -60,7 +58,7 @@ public:
 	Node* findParentByKey(const int key);
 	virtual Node* findByKey(const int key);
 
-	bool findAndDeleteByKey(const int key);
+	virtual bool findAndDeleteByKey(const int key);
 
 	bool isEmpty();
 
@@ -84,12 +82,12 @@ protected:
 	virtual Node* getNodeWithMinimumKey(Node* subTreeRoot);
 	virtual Node* getNodeWithMaximumKey(Node* subTreeRoot);
 
-	Node* findParentByKey(Node* subTreeRoot, const int key);
-	Node* findByKey(Node* subTreeRoot, const int key);
+	virtual Node* findParentByKey(Node* subTreeRoot, const int key);
+	virtual Node* findByKey(Node* subTreeRoot, const int key);
 
-	bool findAndDeleteByKey(Node* subTreeRoot, const int key);
+	virtual bool findAndDeleteByKey(Node* subTreeRoot, const int key);
 
-	bool deleteNode(Node* nodeToDelete);
+	virtual bool deleteNode(Node* nodeToDelete, Node* parent);
 
 	Node* getNodeWithEmptyChild(Node* subTreeRoot);
 
