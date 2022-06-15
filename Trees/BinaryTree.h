@@ -32,7 +32,8 @@ class  BinaryTree
 public:
 	BinaryTree() = default;
 	BinaryTree(const BinaryTree& other);
-	~BinaryTree();
+	virtual ~BinaryTree();
+	
 
 	Node* getRoot();
 	virtual bool addNode(const int key);
