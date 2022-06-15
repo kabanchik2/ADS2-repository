@@ -8,11 +8,6 @@ BinarySearchTree::BinarySearchTree(const const BinarySearchTree& other) : Binary
 {
 }
 
-BinarySearchTree::~BinarySearchTree()
-{
-	destroy(m_root);
-}
-
 bool BinarySearchTree::addNode(const int key)
 {
 	if (m_root == nullptr)
@@ -48,16 +43,6 @@ bool BinarySearchTree::addNode(const int key)
 	
 
 	return true;
-}
-
-int BinarySearchTree::getMinimumKey()
-{
-	return getNodeWithMinimumKey(m_root)->getKey();
-}
-
-int BinarySearchTree::getMaximumKey()
-{
-	return getNodeWithMaximumKey(m_root)->getKey();
 }
 
 Node* BinarySearchTree::findByKey(const int key)

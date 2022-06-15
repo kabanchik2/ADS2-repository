@@ -319,6 +319,7 @@ Node* BinaryTree::getNodeWithMinimumKey(Node* subTreeRoot)
 	if (subTreeRoot == nullptr)
 	{
 		std::cerr << "error min: Tree is empty";
+		return nullptr;
 	}
 
 	Node* min = subTreeRoot;
@@ -348,6 +349,7 @@ Node* BinaryTree::getNodeWithMaximumKey(Node* subTreeRoot)
 	if (subTreeRoot == nullptr)
 	{
 		std::cerr << "error max: Tree is empty";
+		return nullptr;
 	}
 
 	Node* max = subTreeRoot;
@@ -384,12 +386,20 @@ int BinaryTree::getNumberOfNodes()
 
 int BinaryTree::getMinimumKey()
 {
-	return getNodeWithMinimumKey(m_root)->getKey();
+	Node* node = getNodeWithMinimumKey(m_root);
+	if (node)
+		return node->getKey();
+
+	return -1;
 }
 
 int BinaryTree::getMaximumKey()
 {
-	return getNodeWithMaximumKey(m_root)->getKey();
+	Node* node = getNodeWithMaximumKey(m_root);
+	if (node)
+		return node->getKey();
+
+	return -1;
 }
 
 Node* BinaryTree::findParentByKey(Node* subTreeRoot, const int key)

@@ -7,12 +7,9 @@ class BinarySearchTree : public BinaryTree
 public:
 	BinarySearchTree();
 	BinarySearchTree(const const BinarySearchTree& other);
-	~BinarySearchTree();
+	~BinarySearchTree() override = default;
 	
 	bool addNode(const int key) override;
-
-	int getMinimumKey() override;
-	int getMaximumKey() override;
 
 	Node* findByKey(const int key) override;
 
