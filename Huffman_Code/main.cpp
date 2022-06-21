@@ -7,7 +7,12 @@
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	std::string text("aleksey_yurkevich_228");
+
+	HuffmanCode test;
+	test.build(text);
+
+	return 1;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
