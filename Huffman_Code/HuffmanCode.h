@@ -2,6 +2,8 @@
 
 #include <string>
 #include <list>
+#include <map>
+
 
 class HuffmanCode
 {
@@ -32,9 +34,10 @@ public:
 	~HuffmanCode();
 
 	void build(const std::string text);
+	double encode(const std::string originalText, std::string& codedText);
 
-
-
+	void storeCodes(HNode* node, std::string str, std::map<std::string, std::string>& codes) const;
+	void printCodes(HNode* node, std::string str, std::map<std::string, std::string>& codes) const;
 
 
 	void destroyTree(HNode* subTreeRoot);

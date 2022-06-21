@@ -1,7 +1,9 @@
 #include "HuffmanCode.h"
 
+
 #include <iostream>
 #include <algorithm>
+#include <map>
 
 HuffmanCode::~HuffmanCode()
 {
@@ -80,14 +82,50 @@ void HuffmanCode::build(const std::string text)
 				nodesIterator++;
 			}
 		}
-
-		/*for (auto node : nodes)
-		{
-			std::cout << node->m_key << " " << node->m_frequency << std::endl;
-		}*/
 	}
 
 	m_root = nodes.front();
+}
+
+double HuffmanCode::encode(const std::string originalText, std::string& codedText)
+{
+	if (!m_root)
+	{
+		build(originalText);
+	}
+
+	double oldLenght = originalText.size() * 8;
+
+	std::map<std::string, std::string> codes;
+
+	storeCodes(m_root, "", codes);
+	//printCodes(m_root, "", codes);
+
+	for (auto i : originalText)
+	{
+		std::string s;
+		s.push_back(i);
+		codedText += codes[s];
+		s.clear();
+	}
+		
+	//std::cout << codedText << std::endl;
+
+	//std::cout << oldLenght << " " << codedText.size() << " " << ((double)codedText.size() / oldLenght) << std::endl;
+	double newLenght = codedText.size();
+	return (oldLenght / newLenght);
+}
+
+void HuffmanCode::printCodes(HNode* node, std::string str, std::map<std::string, std::string>& codes) const
+{
+	if (!node)
+		return;
+
+	if (!str.empty())
+		std::cout << node->m_key << ": " << str << "\n";
+
+	printCodes(node->m_leftChild, str + "0", codes);
+	printCodes(node->m_rightChild, str + "1", codes);
 }
 
 void HuffmanCode::destroyTree(HNode* subTreeRoot)
@@ -103,3 +141,16 @@ void HuffmanCode::destroyTree(HNode* subTreeRoot)
 		delete subTreeRoot;
 	}
 }
+
+void HuffmanCode::storeCodes(HNode* node, std::string str, std::map<std::string, std::string>& codes) const
+{
+	if (node == nullptr)
+		return;
+
+	if (!str.empty())
+		codes[node->m_key] = str;
+
+	storeCodes(node->m_leftChild, str + "0", codes);
+	storeCodes(node->m_rightChild, str + "1", codes);
+}
+
