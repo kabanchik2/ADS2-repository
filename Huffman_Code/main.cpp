@@ -4,15 +4,30 @@
 #include <iostream>
 
 #include "HuffmanCode.h"
+#include <Windows.h>
+
+int HuffmanCodeTest()
+{
+	std::string str = "aaaaaaaa";
+	std::string codedText;
+
+	HuffmanCode test;
+	std::cout << "Коэффициент сжатия: " << test.encode(str, codedText) << std::endl <<
+		str.size() * 8 << " -> ";
+	std::cout << codedText.size() << std::endl;
+
+
+	std::cout << codedText << std::endl;
+
+	return 1;
+}
 
 int main()
 {
-	std::string text("aleksey_yurkevich_228");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
 
-	HuffmanCode test;
-	test.build(text);
-
-	return 1;
+	return HuffmanCodeTest();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
