@@ -26,6 +26,8 @@ void HuffmanCode::build(const std::string text)
 		++allSymbols[(unsigned char)symbol];
 	}
 
+	//std::cout << allSymbols[97] << std::endl;
+
 	std::list<HNode*> nodes;
 	for (int i = 0; i < nSymbols; ++i)
 	{
@@ -43,7 +45,7 @@ void HuffmanCode::build(const std::string text)
 	std::list<HNode*>::iterator nodesIterator;
 
 
-	while (nodes.size() > 1)
+	while (nodes.size() != 1)
 	{
 		HNode* firstNode = nodes.front();
 		nodes.pop_front();
@@ -96,10 +98,17 @@ double HuffmanCode::encode(const std::string originalText, std::string& codedTex
 
 	double oldLenght = originalText.size() * 8;
 
+	if (m_root->m_leftChild == nullptr && m_root->m_rightChild == nullptr)
+	{
+		codedText += "1";
+		double newLenght = codedText.size();
+		return (oldLenght / newLenght);
+	}
+
 	std::map<std::string, std::string> codes;
 
 	storeCodes(m_root, "", codes);
-	//printCodes(m_root, "", codes);
+	printCodes(m_root, "", codes);
 
 	for (auto i : originalText)
 	{
