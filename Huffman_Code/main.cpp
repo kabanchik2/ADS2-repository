@@ -10,6 +10,7 @@ int HuffmanCodeTest()
 {
 	std::string str = "aaaaaaaa";
 	std::string codedText;
+	std::string decodedText;
 
 	HuffmanCode test;
 	std::cout << "Коэффициент сжатия: " << test.encode(str, codedText) << std::endl <<
@@ -18,6 +19,9 @@ int HuffmanCodeTest()
 
 
 	std::cout << codedText << std::endl;
+	
+	test.decode(codedText, decodedText);
+	std::cout << decodedText << std::endl;
 
 	return 1;
 }
