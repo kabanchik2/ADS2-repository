@@ -132,6 +132,11 @@ double HuffmanCode::encode(const std::string originalText, std::string& codedTex
 bool HuffmanCode::decode(const std::string codedText, std::string& decodedText)
 {
 
+	if (m_root == nullptr)
+	{
+		return false;
+	}
+
 	if (m_root->m_leftChild == nullptr && m_root->m_rightChild == nullptr)
 	{
 		for (int i = 0; i < m_root->m_frequency; ++i)
@@ -144,8 +149,7 @@ bool HuffmanCode::decode(const std::string codedText, std::string& decodedText)
 	else
 	{
 		HNode* tmp = m_root;
-
-
+	
 		for (int i = 0; i < codedText.size(); ++i)
 		{
 			if (codedText[i] == '0')
