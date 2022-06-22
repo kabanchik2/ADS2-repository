@@ -112,7 +112,7 @@ double HuffmanCode::encode(const std::string originalText, std::string& codedTex
 	std::map<std::string, std::string> codes;
 
 	storeCodes(m_root, "", codes);
-	printCodes(m_root, "", codes);
+	//printCodes(m_root, "", codes);
 
 	for (auto i : originalText)
 	{
@@ -127,6 +127,44 @@ double HuffmanCode::encode(const std::string originalText, std::string& codedTex
 	//std::cout << oldLenght << " " << codedText.size() << " " << ((double)codedText.size() / oldLenght) << std::endl;
 	double newLenght = codedText.size();
 	return (oldLenght / newLenght);
+}
+
+bool HuffmanCode::decode(const std::string codedText, std::string& decodedText)
+{
+
+	if (m_root->m_leftChild == nullptr && m_root->m_rightChild == nullptr)
+	{
+		for (int i = 0; i < m_root->m_frequency; ++i)
+		{
+			decodedText += m_root->m_key;
+		}
+
+		return true;
+	}
+	else
+	{
+		HNode* tmp = m_root;
+
+
+		for (int i = 0; i < codedText.size(); ++i)
+		{
+			if (codedText[i] == '0')
+				tmp = tmp->m_leftChild;
+			else
+				tmp = tmp->m_rightChild;
+
+			if (tmp->m_leftChild == nullptr && tmp->m_rightChild == nullptr)
+			{
+				decodedText += tmp->m_key;
+				tmp = m_root;
+			}
+		}
+
+
+		return true;
+	}
+	
+	return false;
 }
 
 void HuffmanCode::printCodes(HNode* node, std::string str, std::map<std::string, std::string>& codes) const

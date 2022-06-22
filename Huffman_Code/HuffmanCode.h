@@ -35,6 +35,7 @@ public:
 
 	void build(const std::string text);
 	double encode(const std::string originalText, std::string& codedText);
+	bool decode(const std::string codedText, std::string& decodedText);
 
 	void storeCodes(HNode* node, std::string str, std::map<std::string, std::string>& codes) const;
 	void printCodes(HNode* node, std::string str, std::map<std::string, std::string>& codes) const;
