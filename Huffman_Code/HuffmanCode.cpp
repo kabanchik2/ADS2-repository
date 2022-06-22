@@ -152,9 +152,9 @@ bool HuffmanCode::decode(const std::string codedText, std::string& decodedText)
 	
 		for (int i = 0; i < codedText.size(); ++i)
 		{
-			if (codedText[i] == '0')
+			if (codedText[i] == '0' && tmp->m_leftChild != nullptr)
 				tmp = tmp->m_leftChild;
-			else
+			else if (tmp->m_rightChild != nullptr)
 				tmp = tmp->m_rightChild;
 
 			if (tmp->m_leftChild == nullptr && tmp->m_rightChild == nullptr)
