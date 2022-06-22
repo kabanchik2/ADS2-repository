@@ -91,6 +91,10 @@ void HuffmanCode::build(const std::string text)
 
 double HuffmanCode::encode(const std::string originalText, std::string& codedText)
 {
+	if (originalText.empty())
+	{
+		return -1;
+	}
 	if (!m_root)
 	{
 		build(originalText);
@@ -100,7 +104,7 @@ double HuffmanCode::encode(const std::string originalText, std::string& codedTex
 
 	if (m_root->m_leftChild == nullptr && m_root->m_rightChild == nullptr)
 	{
-		codedText += "1";
+		codedText = std::string(m_root->m_frequency, '1');
 		double newLenght = codedText.size();
 		return (oldLenght / newLenght);
 	}
