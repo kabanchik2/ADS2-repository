@@ -8,7 +8,7 @@
 
 int HuffmanCodeTest()
 {
-	std::string str = "aaaaaaaa";
+	std::string str = "aaaaaaaa cccccccccccc bbbbb";
 	std::string codedText;
 	std::string decodedText;
 
