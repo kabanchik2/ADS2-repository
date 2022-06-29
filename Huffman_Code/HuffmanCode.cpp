@@ -87,6 +87,8 @@ void HuffmanCode::build(const std::string text)
 	}
 
 	m_root = nodes.front();
+
+	delete[]allSymbols;
 }
 
 double HuffmanCode::encode(const std::string originalText, std::string& codedText)
@@ -112,7 +114,7 @@ double HuffmanCode::encode(const std::string originalText, std::string& codedTex
 	std::map<std::string, std::string> codes;
 
 	storeCodes(m_root, "", codes);
-	//printCodes(m_root, "", codes);
+	printCodes(m_root, "", codes);
 
 	for (auto i : originalText)
 	{
