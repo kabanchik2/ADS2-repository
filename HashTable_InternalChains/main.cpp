@@ -25,16 +25,25 @@ int main()
     table.printTable();
     std::cout << std::endl;
     
-    int key;
+    /*int key;
     do
     {
         std::cout << "enter key: ";
         std::cin >> key;
         std::cout << table.findKey(key) << std::endl;
+    } while (key != -1);*/
+
+    int key;
+    do
+    {
+        std::cout << "enter key: ";
+        std::cin >> key;
+        std::cout << std::endl;
+        std::cout << table.deleteKey(key) << std::endl;
+        table.printTable();
     } while (key != -1);
 
-   
-
+    
    
     //std::cout << table.getSize() << std::endl;
     
