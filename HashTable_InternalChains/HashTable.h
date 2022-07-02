@@ -18,6 +18,8 @@ public:
 
 	bool addKey(int key, int value);
 	bool findKey(int key);
+	HashCell* findCellWithKey(int key);
+	bool deleteKey(int key);
 
 	void printTable();
 

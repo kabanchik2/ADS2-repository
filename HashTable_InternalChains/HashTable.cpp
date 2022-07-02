@@ -88,6 +88,61 @@ bool HashTable::findKey(int key)
 	return true;
 }
 
+HashCell* HashTable::findCellWithKey(int key)
+{
+	int index = hash(key, m_size);
+
+	if (!m_hashCell[index].m_isExists)
+	{
+		return 0;
+	}
+
+	while (index != -1 && m_hashCell[index].m_key != key)
+	{
+		index = m_hashCell[index].indexOfNext;
+	}
+
+	if (index == -1)
+	{
+		return 0;
+	}
+
+	return (m_hashCell + index);
+}
+
+bool HashTable::deleteKey(int key)
+{
+	HashCell* tmpCell = findCellWithKey(key);
+	if (tmpCell == 0)
+	{
+		return false;
+	}
+
+	if (tmpCell->indexOfNext != -1)
+	{
+		int next = tmpCell->indexOfNext;
+		tmpCell->m_key = m_hashCell[next].m_key;
+		tmpCell->m_value = m_hashCell[next].m_value;
+		tmpCell->indexOfNext = m_hashCell[next].indexOfNext;
+
+		m_hashCell[next].m_key = -1;
+		m_hashCell[next].m_value = -1;
+		m_hashCell[next].indexOfNext = -1;
+		m_hashCell[next].m_isExists = false;
+	}
+	else
+	{
+		tmpCell->m_key = -1;
+		tmpCell->m_value = -1;
+		tmpCell->indexOfNext = -1;
+		tmpCell->m_isExists = false;
+	}
+
+	m_actualSize--;
+
+	return true;
+}
+
 void HashTable::printTable()
 {
 	if (m_actualSize == 0)
