@@ -17,6 +17,7 @@ public:
 	~HashTable();
 
 	bool addKey(int key, int value);
+	bool findKey(int key);
 
 	void printTable();
 

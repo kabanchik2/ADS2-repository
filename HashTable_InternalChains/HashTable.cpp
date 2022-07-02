@@ -66,6 +66,28 @@ bool HashTable::addKey(int key, int value)
 	return true;
 }
 
+bool HashTable::findKey(int key)
+{
+	int index = hash(key, m_size);
+
+	if (!m_hashCell[index].m_isExists)
+	{
+		return false;
+	}
+
+	while (index != -1 && m_hashCell[index].m_key != key)
+	{
+		index = m_hashCell[index].indexOfNext;
+	}
+
+	if (index == -1)
+	{
+		return false;
+	}
+
+	return true;
+}
+
 void HashTable::printTable()
 {
 	if (m_actualSize == 0)
