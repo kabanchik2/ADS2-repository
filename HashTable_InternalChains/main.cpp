@@ -3,9 +3,29 @@
 
 #include <iostream>
 
+#include "HashTable.h"
+
 int main()
 {
-    std::cout << "Hello World!\n";
+    HashTable table(10);
+
+    table.addKey(10, 1000);
+    table.addKey(11, 100);
+    table.addKey(12, 200);
+    table.addKey(13, 300);
+    table.addKey(14, 400);
+    table.addKey(15, 500);
+    table.addKey(16, 600);
+    table.addKey(17, 700);
+    table.addKey(18, 800);
+    table.addKey(19, 900);
+    table.addKey(44, 333);
+    table.addKey(55, 12225);
+
+    table.printTable();
+    std::cout << table.getSize() << std::endl;
+
+    //std::cout << ((1 % 10 + (1 + 1 % abs(10 - 2))) % 10);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
