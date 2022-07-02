@@ -29,8 +29,11 @@ bool HashTable::addKey(int key, int value)
 
 	if (m_hashCell[index].m_isExists == false || m_hashCell[index].m_key == key)
 	{
+		if (m_hashCell[index].m_key != key)
+		{
+			m_actualSize++;
+		}
 		
-		m_actualSize++;
 		m_hashCell[index].m_key = key;
 		m_hashCell[index].m_value = value;
 		m_hashCell[index].m_isExists = true;
@@ -46,7 +49,8 @@ bool HashTable::addKey(int key, int value)
 
 	if (current == -1)
 	{
-		resize(m_size*2);
+		int newSize = m_size * 2;
+		resize(newSize);
 		return addKey(key, value);
 	}
 
@@ -124,6 +128,7 @@ bool HashTable::deleteKey(int key)
 		tmpCell->m_key = m_hashCell[next].m_key;
 		tmpCell->m_value = m_hashCell[next].m_value;
 		tmpCell->indexOfNext = m_hashCell[next].indexOfNext;
+		tmpCell->m_isExists = m_hashCell[next].m_isExists;
 
 		m_hashCell[next].m_key = -1;
 		m_hashCell[next].m_value = -1;
@@ -158,6 +163,8 @@ void HashTable::printTable()
 			std::cout << std::endl;
 		}
 	}
+
+	std::cout << "actual size: " << m_actualSize << std::endl;
 }
 
 int HashTable::getSize()
@@ -189,6 +196,7 @@ void HashTable::resize(int newSize)
 		m_hashCell[i].indexOfNext = -1;
 	}
 
+	m_actualSize = 0;
 	for (int i = 0; i < oldSize; ++i)
 	{
 		HashCell cell = oldCells[i];
