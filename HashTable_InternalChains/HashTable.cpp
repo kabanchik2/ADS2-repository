@@ -158,7 +158,8 @@ void HashTable::printTable()
 	{
 		if (m_hashCell[i].m_isExists)
 		{
-			std::cout << i << ": ";
+			std::cout << "(" << i << ") ";
+			std::cout << m_hashCell[i].m_key << ": ";
 			std::cout << m_hashCell[i].m_value;
 			std::cout << std::endl;
 		}
