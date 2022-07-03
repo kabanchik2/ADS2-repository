@@ -9,18 +9,18 @@ int main()
 {
     HashTable table(10);
 
-    table.addKey(10, 10);
-    table.addKey(11, 11);
-    table.addKey(12, 12);
-    table.addKey(13, 13);
-    table.addKey(14, 14);
-    table.addKey(15, 15);
-    table.addKey(16, 16);
-    table.addKey(17, 17);
-    table.addKey(18, 18);
-    table.addKey(19, 19);
-    table.addKey(44, 44);
-    table.addKey(55, 55);
+    table.addKey(10, 100);
+    table.addKey(11, 101);
+    table.addKey(12, 102);
+    table.addKey(13, 130);
+    table.addKey(14, 140);
+    table.addKey(15, 1514);
+    table.addKey(16, 16346);
+    table.addKey(17, 17123);
+    table.addKey(18, 145);
+    table.addKey(19, 19563);
+    table.addKey(44, 4134344);
+    table.addKey(55, 5345);
 
     table.printTable();
     std::cout << std::endl;
@@ -39,7 +39,8 @@ int main()
         std::cout << "enter key: ";
         std::cin >> key;
         std::cout << std::endl;
-        std::cout << table.deleteKey(key) << std::endl;
+        //std::cout << table.deleteKey(key) << std::endl;
+        table.deleteKey(key);
         table.printTable();
     } while (key != -1);
 
