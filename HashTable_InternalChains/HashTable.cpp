@@ -25,21 +25,26 @@ bool HashTable::addKey(int key, int value)
 	int index = hash(key, m_size);
 	//int index = hash1(key);
 
-
-
-	if (m_hashCell[index].m_isExists == false || m_hashCell[index].m_key == key)
+	if (m_hashCell[index].m_isExists == false)
 	{
-		if (m_hashCell[index].m_key != key)
-		{
-			m_actualSize++;
-		}
-		
+		m_actualSize++;
 		m_hashCell[index].m_key = key;
 		m_hashCell[index].m_value = value;
 		m_hashCell[index].m_isExists = true;
 
 		return true;
 	}
+
+	HashCell *tmpCell = findCellWithKey(key);
+	if (tmpCell)
+	{
+		tmpCell->m_key = key;
+		tmpCell->m_value = value;
+		tmpCell->m_isExists = true;
+
+		return true;
+	}
+
 
 	int current = m_size - 1;
 	while (current >= 0 && m_hashCell[current].m_isExists && m_hashCell[current].m_key != key)
@@ -98,7 +103,7 @@ HashCell* HashTable::findCellWithKey(int key)
 
 	if (!m_hashCell[index].m_isExists)
 	{
-		return 0;
+		return nullptr;
 	}
 
 	while (index != -1 && m_hashCell[index].m_key != key)
@@ -108,7 +113,7 @@ HashCell* HashTable::findCellWithKey(int key)
 
 	if (index == -1)
 	{
-		return 0;
+		return nullptr;
 	}
 
 	return (m_hashCell + index);
